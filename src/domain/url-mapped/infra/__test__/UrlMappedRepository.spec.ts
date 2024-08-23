@@ -1,5 +1,5 @@
 import db from '@infra/mysql/MySQLConnection'
-import { UrlMappedRepository } from '../UrlMappedRepository'
+import UrlMappedRepository from '../UrlMappedRepository'
 
 jest.mock('@infra/mysql/MySQLConnection')
 
