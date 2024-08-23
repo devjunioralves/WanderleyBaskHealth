@@ -6,8 +6,15 @@
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
-      "@/tests/*":["../tests/*"]
+      "@application/*": ["application/*"],
+      "@config/*": ["config/*"],
+      "@logger/*": ["logger/*"],
+      "@di/*": ["di/*"],
+      "@infra/*": ["infra/*"],
+      "@presentation/*": ["presentation/*"],
+      "@domain/*": ["domain/*"],
+      "@shared/*": ["shared/*"],
+      "@src/*": ["./*"]
     },
     "outDir": "dist",
     "esModuleInterop": true,
@@ -19,5 +26,5 @@
     "strictPropertyInitialization": true,
     "noImplicitAny": true
   },
-  "include": ["src"],
+  "include": ["src"]
 }
