@@ -29,4 +29,8 @@ export default class UrlService implements IUrlService {
       `${this.baseUrl}${shortUrl}`
     )
   }
+
+  public async findByShortUrl(shortUrl: string): Promise<Url> {
+    return await this.urlRepository.findByShortUrl(shortUrl)
+  }
 }

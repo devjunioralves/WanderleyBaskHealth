@@ -11,6 +11,7 @@ import UrlAppService from '@application/url/UrlAppService'
 import UrlRepository from '@domain/url/infra/UrlRepository'
 import UrlService from '@domain/url/services/UrlService'
 import CreateUrlController from '@presentation/http/controllers/url/CreateUrlController'
+import GetOneUrlController from '@presentation/http/controllers/url/GetOneUrlController'
 import { UrlRouter } from '@presentation/http/routes/UrlRouter'
 
 childContainer.registerSingleton(tokens.UrlRouter, UrlRouter)
@@ -21,5 +22,9 @@ childContainer.registerSingleton(
 childContainer.registerSingleton(tokens.UrlAppService, UrlAppService)
 childContainer.registerSingleton(tokens.UrlService, UrlService)
 childContainer.registerSingleton(tokens.UrlRepository, UrlRepository)
+childContainer.registerSingleton(
+  tokens.GetOneUrlController,
+  GetOneUrlController
+)
 
 export { childContainer as container }

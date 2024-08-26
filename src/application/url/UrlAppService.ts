@@ -12,4 +12,8 @@ export default class UrlAppService {
   async create(data: string): Promise<Url> {
     return await this.urlService.create(data)
   }
+
+  async findByShortUrl(shortUrl: string): Promise<Url> {
+    return await this.urlService.findByShortUrl(shortUrl)
+  }
 }

@@ -5,4 +5,5 @@ export const tokens = {
   UrlAppService: Symbol('UrlAppService'),
   UrlService: Symbol('UrlService'),
   UrlRepository: Symbol('UrlRepository'),
+  GetOneUrlController: Symbol('GetOneUrlController'),
 }

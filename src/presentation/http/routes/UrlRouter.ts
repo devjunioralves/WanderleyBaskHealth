@@ -12,13 +12,16 @@ import { IRouter } from './IRouter'
 export class UrlRouter extends BaseRouter implements IRouter {
   constructor(
     @inject(tokens.CreateUrlController)
-    private createUrlController: BaseController
+    private createUrlController: BaseController,
+    @inject(tokens.GetOneUrlController)
+    private getOneUrlController: BaseController
   ) {
     super(Router())
   }
 
   setup(): Router {
-    this.post('/v1/url', this.createUrlController)
+    this.post('/v1/shorten', this.createUrlController)
+    this.get('/v1/shorten/:url', this.getOneUrlController)
     return this.getRouter()
   }
 }
