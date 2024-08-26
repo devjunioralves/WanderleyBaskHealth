@@ -16,6 +16,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "class-transformer": "^0.5.1",
     "crypto": "^1.0.1",
     "module-alias": "^2.2.2",
     "mongodb": "^5.2.0",
