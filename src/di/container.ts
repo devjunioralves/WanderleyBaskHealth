@@ -10,7 +10,9 @@ import UrlAppService from '@application/url/UrlAppService'
 import UrlRepository from '@domain/url/infra/UrlRepository'
 import UrlService from '@domain/url/services/UrlService'
 import CreateUrlController from '@presentation/http/controllers/url/CreateUrlController'
+import { UrlRouter } from '@presentation/http/routes/UrlRouter'
 
+childContainer.registerSingleton(tokens.UrlRouter, UrlRouter)
 childContainer.registerSingleton(
   tokens.CreateUrlController,
   CreateUrlController
