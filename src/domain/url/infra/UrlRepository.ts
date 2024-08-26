@@ -16,9 +16,9 @@ export default class UrlRepository implements IUrlRepository {
     return result as unknown as Url
   }
 
-  async findByShortUrl(shortUrl: string): Promise<Url> {
-    const sql = `SELECT * FROM mapped_urls WHERE url_mapped LIKE CONCAT('%', ?, '%')`
+  async findByShortUrl(shortUrl: string): Promise<Url[]> {
+    const sql = `SELECT * FROM mapped_urls WHERE url_mapped LIKE CONCAT('%', ?, '%') LIMIT 1`
     const [result] = await db.execute(sql, [shortUrl])
-    return result as unknown as Url
+    return result as unknown as Url[]
   }
 }

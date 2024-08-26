@@ -24,13 +24,19 @@ export default class UrlService implements IUrlService {
 
   public async create(urlSource: string): Promise<Url> {
     const shortUrl = this.generateShortUrl(urlSource)
-    return await this.urlRepository.create(
-      urlSource,
-      `${this.baseUrl}${shortUrl}`
-    )
+    const shortened = `${this.baseUrl}${shortUrl}`
+    const existUrl = (await this.urlRepository.findByShortUrl(
+      shortened
+    )) as unknown as Url[]
+
+    if (existUrl.length) {
+      return existUrl[0]
+    }
+
+    return await this.urlRepository.create(urlSource, shortened)
   }
 
-  public async findByShortUrl(shortUrl: string): Promise<Url> {
+  public async findByShortUrl(shortUrl: string): Promise<Url[]> {
     return await this.urlRepository.findByShortUrl(shortUrl)
   }
 }
