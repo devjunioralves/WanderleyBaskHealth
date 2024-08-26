@@ -18,7 +18,7 @@ export class UrlRouter extends BaseRouter implements IRouter {
   }
 
   setup(): Router {
-    this.get('/v1/url', this.createUrlController)
+    this.post('/v1/url', this.createUrlController)
     return this.getRouter()
   }
 }

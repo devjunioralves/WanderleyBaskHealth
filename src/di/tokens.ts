@@ -1,4 +1,5 @@
 export const tokens = {
+  Routes: Symbol('Routes'),
   UrlRouter: Symbol('UrlRouter'),
   CreateUrlController: Symbol('CreateUrlController'),
   UrlAppService: Symbol('UrlAppService'),

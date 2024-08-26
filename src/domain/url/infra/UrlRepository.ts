@@ -7,6 +7,12 @@ export default class UrlRepository implements IUrlRepository {
     const sql = `INSERT INTO mapped_urls (url_source, url_mapped) VALUES (?,?)`
     const [result] = await db.execute(sql, [urlSource, mappedUrl])
     const insertId = (result as any).insertId
-    return insertId
+    return await this.findById(insertId)
+  }
+
+  async findById(id: number): Promise<Url> {
+    const sql = `SELECT * FROM mapped_urls WHERE id =?`
+    const [result] = await db.execute(sql, [id])
+    return result as unknown as Url
   }
 }

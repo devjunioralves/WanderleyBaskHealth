@@ -5,6 +5,7 @@
   "author": "Junior Alves <jrwanderley17@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "nodemon --exec 'ts-node -r tsconfig-paths/register src/index.ts'",
     "lint": "eslint .",
     "lint:fix": "eslint 'src/**' --fix",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -21,7 +22,9 @@
     "express": "^4.19.2",
     "module-alias": "^2.2.2",
     "mysql2": "^3.11.0",
+    "nodemon": "^3.1.4",
     "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
     "tsyringe": "^4.8.0"
   },
   "devDependencies": {

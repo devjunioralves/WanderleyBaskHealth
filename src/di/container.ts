@@ -1,9 +1,10 @@
 import { tokens } from '@di/tokens'
+import { Routes } from '@presentation/http/Routes'
 import { container } from 'tsyringe'
 
-require('dotenv').config()
-
 const childContainer = container.createChildContainer()
+
+childContainer.registerSingleton(tokens.Routes, Routes)
 
 //Url
 import UrlAppService from '@application/url/UrlAppService'

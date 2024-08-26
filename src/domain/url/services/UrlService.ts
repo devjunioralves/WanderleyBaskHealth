@@ -1,6 +1,7 @@
 import { tokens } from '@di/tokens'
 import crypto from 'crypto'
 import { inject, injectable } from 'tsyringe'
+import { Url } from '../entities/Url'
 import { IUrlRepository } from '../types/IUrlRepository'
 import { IUrlService } from '../types/IUrlService'
 
@@ -21,10 +22,11 @@ export default class UrlService implements IUrlService {
     return shortUrl
   }
 
-  public async create(urlSource: string): Promise<string> {
+  public async create(urlSource: string): Promise<Url> {
     const shortUrl = this.generateShortUrl(urlSource)
-    const url = await this.urlRepository.create(urlSource, shortUrl)
-
-    return `${this.baseUrl}${url.mappedUrl}`
+    return await this.urlRepository.create(
+      urlSource,
+      `${this.baseUrl}${shortUrl}`
+    )
   }
 }
