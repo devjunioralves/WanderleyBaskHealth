@@ -1,13 +1,13 @@
 import db from '@infra/mysql/MySQLConnection'
-import UrlMappedRepository from '../UrlMappedRepository'
+import UrlRepository from '../UrlRepository'
 
 jest.mock('@infra/mysql/MySQLConnection')
 
-describe('UrlMappedRepository', () => {
-  let urlMappedRepository: UrlMappedRepository
+describe('UrlRepository', () => {
+  let urlRepository: UrlRepository
 
   beforeEach(() => {
-    urlMappedRepository = new UrlMappedRepository()
+    urlRepository = new UrlRepository()
   })
 
   it('should insert a new URL mapping and return the insertId', async () => {
@@ -17,7 +17,7 @@ describe('UrlMappedRepository', () => {
     const urlSource = 'http://example.com'
     const mappedUrl = 'http://short.url/abc123'
 
-    const insertId = await urlMappedRepository.create(urlSource, mappedUrl)
+    const insertId = await urlRepository.create(urlSource, mappedUrl)
 
     expect(insertId).toBe(1)
     expect(mockExecute).toHaveBeenCalledWith(

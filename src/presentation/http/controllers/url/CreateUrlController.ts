@@ -2,15 +2,16 @@ import { inject, injectable } from 'tsyringe'
 
 import BaseController from '@shared/http/controller/BaseController'
 
-import UrlMapperAppService from '@application/url-mapper/UrlMapperAppService'
+import UrlAppService from '@application/url/UrlAppService'
+import { tokens } from '@di/tokens'
 import { IRequest } from '@presentation/http/types/IRequest'
 import { BaseError } from '@shared/exceptions/BaseError'
 
 @injectable()
 export default class CreateUrlController extends BaseController {
   constructor(
-    @inject('UrlMapperAppService')
-    private urlMapperAppService: UrlMapperAppService
+    @inject(tokens.UrlAppService)
+    private urlAppService: UrlAppService
   ) {
     super()
   }
@@ -19,7 +20,7 @@ export default class CreateUrlController extends BaseController {
     try {
       const { url } = request.body
 
-      const result = await this.urlMapperAppService.create(url as string)
+      const result = await this.urlAppService.create(url as string)
 
       return this.send(result)
     } catch (err) {

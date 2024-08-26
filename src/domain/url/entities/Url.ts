@@ -1,4 +1,4 @@
-export class UrlMapped {
+export class Url {
   constructor(
     public urlSource: string,
     public mappedUrl: string,

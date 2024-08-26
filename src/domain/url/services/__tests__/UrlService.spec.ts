@@ -1,16 +1,16 @@
-import UrlMapperService from '@domain/url-mapped/services/UrlMappedService'
-import { IUrlMappedRepository } from '@domain/url-mapped/types/IUrlMappedRepository'
+import UrlService from '@domain/url/services/UrlService'
+import { IUrlRepository } from '@domain/url/types/IUrlRepository'
 import crypto from 'crypto'
 
-const mockUrlMappedRepository: jest.Mocked<IUrlMappedRepository> = {
+const mockUrlRepository: jest.Mocked<IUrlRepository> = {
   create: jest.fn(),
 }
 
-describe('UrlMapperService', () => {
-  let urlMapperService: UrlMapperService
+describe('UrlService', () => {
+  let urlService: UrlService
 
   beforeEach(() => {
-    urlMapperService = new UrlMapperService(mockUrlMappedRepository)
+    urlService = new UrlService(mockUrlRepository)
   })
 
   afterEach(() => {
@@ -21,7 +21,7 @@ describe('UrlMapperService', () => {
     const url = 'http://example.com'
     const hash = crypto.createHash('md5').update(url).digest('hex').slice(0, 6)
 
-    const generatedShortUrl = (urlMapperService as any).generateShortUrl(url)
+    const generatedShortUrl = (urlService as any).generateShortUrl(url)
 
     expect(generatedShortUrl).toBe(hash)
   })
@@ -31,21 +31,18 @@ describe('UrlMapperService', () => {
     const mockShortUrl = 'abc123'
 
     jest
-      .spyOn(urlMapperService as any, 'generateShortUrl')
+      .spyOn(urlService as any, 'generateShortUrl')
       .mockReturnValue(mockShortUrl)
 
-    mockUrlMappedRepository.create.mockResolvedValue({
+    mockUrlRepository.create.mockResolvedValue({
       id: 1,
       urlSource: url,
       mappedUrl: mockShortUrl,
     })
 
-    const result = await urlMapperService.shortenUrl(url)
+    const result = await urlService.create(url)
 
-    expect(mockUrlMappedRepository.create).toHaveBeenCalledWith(
-      url,
-      mockShortUrl
-    )
+    expect(mockUrlRepository.create).toHaveBeenCalledWith(url, mockShortUrl)
     expect(result).toBe(`http://short.url/${mockShortUrl}`)
   })
 
@@ -53,8 +50,8 @@ describe('UrlMapperService', () => {
     const url1 = 'http://example.com/1'
     const url2 = 'http://example.com/2'
 
-    const shortUrl1 = (urlMapperService as any).generateShortUrl(url1)
-    const shortUrl2 = (urlMapperService as any).generateShortUrl(url2)
+    const shortUrl1 = (urlService as any).generateShortUrl(url1)
+    const shortUrl2 = (urlService as any).generateShortUrl(url2)
 
     expect(shortUrl1).not.toBe(shortUrl2)
   })
