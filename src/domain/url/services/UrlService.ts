@@ -33,7 +33,8 @@ export default class UrlService implements IUrlService {
       return existUrl[0]
     }
 
-    return await this.urlRepository.create(urlSource, shortened)
+    const newUrl = await this.urlRepository.create(urlSource, shortened)
+    return newUrl[0]
   }
 
   public async findByShortUrl(shortUrl: string): Promise<Url[]> {
