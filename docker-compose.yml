@@ -16,6 +16,8 @@ services:
       - DB_NAME=baskhealth
     depends_on:
       - mysql
+    volumes:
+      - ./:/app
     networks:
       - app-network
 
