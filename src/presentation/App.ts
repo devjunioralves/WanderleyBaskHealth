@@ -2,6 +2,7 @@ import { container } from '@di/container'
 import { tokens } from '@di/tokens'
 import bodyParser from 'body-parser'
 import express, { Router } from 'express'
+import { rateLimitMiddleware } from './http/middlewares/RateLimiterMiddleware'
 import { Routes } from './http/Routes'
 import { CronJob } from './job/CronJob'
 
@@ -14,6 +15,7 @@ cronJob.run()
 
 const app = express()
 
+app.use(rateLimitMiddleware)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(router)
