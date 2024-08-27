@@ -6,4 +6,6 @@ export const tokens = {
   UrlService: Symbol('UrlService'),
   UrlRepository: Symbol('UrlRepository'),
   GetOneUrlController: Symbol('GetOneUrlController'),
+  MetricJobAppService: Symbol('MetricJobAppService'),
+  CronJob: Symbol('CronJob'),
 }

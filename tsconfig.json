@@ -15,6 +15,7 @@
       "@presentation/*": ["presentation/*"],
       "@domain/*": ["domain/*"],
       "@shared/*": ["shared/*"],
+      "@utils/*": ["utils/*"],
       "@src/*": ["./*"]
     },
     "outDir": "dist",

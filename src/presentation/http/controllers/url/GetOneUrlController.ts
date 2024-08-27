@@ -6,6 +6,7 @@ import UrlAppService from '@application/url/UrlAppService'
 import { tokens } from '@di/tokens'
 import { IRequest } from '@presentation/http/types/IRequest'
 import { BaseError } from '@shared/exceptions/BaseError'
+import { logClick } from '@src/utils/LogUtils'
 
 @injectable()
 export default class GetOneUrlController extends BaseController {
@@ -19,6 +20,7 @@ export default class GetOneUrlController extends BaseController {
   public async execute(request: IRequest) {
     try {
       const { url } = request.params
+      logClick(url)
 
       const result = await this.urlAppService.findByShortUrl(url as string)
 
