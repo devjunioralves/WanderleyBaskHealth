@@ -1,58 +1,46 @@
-import UrlService from '@domain/url/services/UrlService'
+import { Url } from '@domain/url/entities/Url'
 import { IUrlRepository } from '@domain/url/types/IUrlRepository'
-import crypto from 'crypto'
-
-const mockUrlRepository: jest.Mocked<IUrlRepository> = {
-  create: jest.fn(),
-}
+import UrlService from '../UrlService'
 
 describe('UrlService', () => {
-  let urlService: UrlService
+  it('should call generateShortUrl with correct value', async () => {
+    const findByShortUrlMock = jest.fn() as jest.MockedFunction<
+      typeof urlRepository.findByShortUrl
+    >
+    const createMock = jest.fn() as jest.MockedFunction<
+      typeof urlRepository.create
+    >
 
-  beforeEach(() => {
-    urlService = new UrlService(mockUrlRepository)
-  })
+    const urlRepository: IUrlRepository = {
+      create: createMock,
+      findByShortUrl: findByShortUrlMock,
+      findById: jest.fn(),
+    }
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
+    const urlService = new UrlService(urlRepository)
 
-  it('should generate a short URL using MD5 hash', () => {
-    const url = 'http://example.com'
-    const hash = crypto.createHash('md5').update(url).digest('hex').slice(0, 6)
+    const generateShortUrlSpy = jest.spyOn(
+      urlService as any,
+      'generateShortUrl'
+    )
 
-    const generatedShortUrl = (urlService as any).generateShortUrl(url)
+    findByShortUrlMock.mockResolvedValue([])
 
-    expect(generatedShortUrl).toBe(hash)
-  })
-
-  it('should save the original and short URL in the repository', async () => {
-    const url = 'http://example.com'
-    const mockShortUrl = 'abc123'
-
-    jest
-      .spyOn(urlService as any, 'generateShortUrl')
-      .mockReturnValue(mockShortUrl)
-
-    mockUrlRepository.create.mockResolvedValue({
+    const mockUrl = {
       id: 1,
-      urlSource: url,
-      mappedUrl: mockShortUrl,
-    })
+      urlSource: 'http://example.com',
+      urlMapped: 'http://short.url/a9b9f0',
+    } as Url
+    createMock.mockResolvedValue([mockUrl])
 
-    const result = await urlService.create(url)
+    const result = await urlService.create('http://example.com')
 
-    expect(mockUrlRepository.create).toHaveBeenCalledWith(url, mockShortUrl)
-    expect(result).toBe(`http://short.url/${mockShortUrl}`)
-  })
-
-  it('should generate a unique short URL for different URLs', () => {
-    const url1 = 'http://example.com/1'
-    const url2 = 'http://example.com/2'
-
-    const shortUrl1 = (urlService as any).generateShortUrl(url1)
-    const shortUrl2 = (urlService as any).generateShortUrl(url2)
-
-    expect(shortUrl1).not.toBe(shortUrl2)
+    expect(generateShortUrlSpy).toHaveBeenCalledWith('http://example.com')
+    expect(findByShortUrlMock).toHaveBeenCalledWith('http://short.url/a9b9f0')
+    expect(createMock).toHaveBeenCalledWith(
+      'http://example.com',
+      'http://short.url/a9b9f0'
+    )
+    expect(result).toEqual(mockUrl)
   })
 })

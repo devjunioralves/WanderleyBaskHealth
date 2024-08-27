@@ -1,5 +1,5 @@
 export class Url {
-  id!: string
+  id!: number
   urlSource!: string
   urlMapped!: string
 }

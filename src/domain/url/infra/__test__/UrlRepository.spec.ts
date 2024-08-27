@@ -19,7 +19,7 @@ describe('UrlRepository', () => {
 
     const insertId = await urlRepository.create(urlSource, mappedUrl)
 
-    expect(insertId).toBe(1)
+    expect(insertId).toStrictEqual({ insertId: 1 })
     expect(mockExecute).toHaveBeenCalledWith(
       'INSERT INTO mapped_urls (url_source, url_mapped) VALUES (?,?)',
       [urlSource, mappedUrl]

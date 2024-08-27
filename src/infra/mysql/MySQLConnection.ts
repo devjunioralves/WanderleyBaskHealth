@@ -1,11 +1,14 @@
+import dotenv from 'dotenv'
 import mysql from 'mysql2/promise'
 
+dotenv.config()
+
 const pool = mysql.createPool({
-  host: 'mysql',
-  user: 'root',
-  port: 3306,
-  password: 'password',
-  database: 'baskhealth',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  port: Number(process.env.DB_PORT),
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
